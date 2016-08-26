@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import butterknife.ButterKnife;
 
@@ -34,6 +35,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         forceOfflineReceiver = new ForceOfflineReceiver();
         IntentFilter filter = new IntentFilter("com.lyf.forceOffline");
         localBroadcastManager.registerReceiver(forceOfflineReceiver, filter);
+        Log.d("info","onCreate---------");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("info", "onStart---------");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("info", "onResume---------");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("info", "onRestart---------");
+
     }
 
     public abstract int getContentViewId();
@@ -43,6 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("info", "onDestroy------------");
         localBroadcastManager.unregisterReceiver(forceOfflineReceiver);
         ActivityCollector.removeActivity(this);
         ButterKnife.unbind(this);//解除绑定，官方文档只对fragment做了解绑
@@ -73,5 +95,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         //本应用内发送广播
         Intent intent = new Intent("com.lyf.forceOffline");
         localBroadcastManager.sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("info", "onPause------------");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("info", "onStop------------");
     }
 }

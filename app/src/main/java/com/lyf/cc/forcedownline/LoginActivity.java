@@ -33,8 +33,8 @@ public class LoginActivity extends BaseActivity {
         String username = account.getText().toString();
         String pwd = password.getText().toString();
         if ("admin".equals(username) && "123".equals(pwd)) {
-            finish();
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
         }
